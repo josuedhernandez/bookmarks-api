@@ -15,11 +15,11 @@ Node.js, Express
 
 # Requirements for API Using Database
 * Make two new databases, bookmarks and bookmarks-test commands:
-    * createdb -U dunder_mifflin bookmarks
-    * createdb -U dunder_mifflin bookmarks-test
+    *     createdb -U dunder_mifflin bookmarks
+    *     createdb -U dunder_mifflin bookmarks-test
 * Write the first migration inside the bookmarks-server project that creates the table for bookmarks. Then use the migration to create the tables in both new databases.
-    * npm i postgrator-cli@3.2.0 -D
-    * npm i pg
+    *     npm i postgrator-cli@3.2.0 -D
+    *     npm i pg
 * The table should contain fields for id, title, url, description and rating
 * The description is the only optional field
 * Choose suitable data types for each column
