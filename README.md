@@ -20,12 +20,17 @@ Node.js, Express
 * Write the first migration inside the bookmarks-server project that creates the table for bookmarks. Then use the migration to create the tables in both new databases.
     *     npm i postgrator-cli@3.2.0 -D
     *     npm i pg
-* The table should contain fields for id, title, url, description and rating
-* The description is the only optional field
-* Choose suitable data types for each column
+    * The table should contain fields for id, title, url, description and rating
+    * The description is the only optional field
+    * Choose suitable data types for each column
+        *     npm run migrate -- 1
 * Refactor the GET /bookmarks endpoint and tests. The endpoint should use the database tables.
-* You'll need to wire up Knex into your server and tests.
-* Write a BookmarksService object in the bookmarks-server project that will support CRUD for bookmarks using Knex.
-* You should use fixtures in your tests for the GET /bookmarks and GET /bookmarks/:bookmark_id
-* Write tests for how each endpoint behaves when the database is empty
+    * You'll need to wire up Knex into your server and tests.
+        * For tests
+            *     createdb -U dunder_mifflin bookmarks-test
+    * Write a BookmarksService object in the bookmarks-server project that will support CRUD for bookmarks using Knex.
+    * You should use fixtures in your tests for the GET /bookmarks and GET /bookmarks/:bookmark_id
+    * Write tests for how each endpoint behaves when the database is empty
 * Write seeding scripts to insert dummy bookmarks into the database tables so you can check that the refactored endpoints work when your server is running locally
+    * Seed table
+        *     psql -U dunder_mifflin -d bookmarks -f ./seeds/seed.bookmarks.sql
