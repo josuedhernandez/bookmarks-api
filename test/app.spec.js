@@ -257,4 +257,19 @@ describe.only("Bookmarks Endpoints", function () {
       });
     });
   });
+
+   describe.only(`POST /bookmarks`, () => {
+   it(`creates a bookmark, responding with 201 and the new bookmark`,  function() {
+     return supertest(app)
+       .post('/bookmarks')
+       .set("Authorization", `Bearer ${process.env.API_TOKEN}`)
+       .send({
+        title: 'test-title',
+        url: "https://www.test.com",
+        description: "Test title",
+        rating: 1,
+       })
+       .expect(201)
+   })
+ })
 });
