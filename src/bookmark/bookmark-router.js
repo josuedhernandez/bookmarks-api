@@ -81,8 +81,10 @@ bookmarkRouter
     res.json(serializeBookmark(res.bookmark));
   })
   .delete((req, res, next) => {
-    BookmarksService.deleteBookmark(req.app.get("db"), req.params.bookmark_id)
-      .then(() => {
+    const { bookmark_id } = req.params;
+    BookmarksService.deleteBookmark(req.app.get("db"), bookmark_id)
+      .then((numRowsAffected) => {
+        logger.info(`Bookmark with id ${bookmark_id} deleted.`);
         res.status(204).end();
       })
       .catch(next);
@@ -92,8 +94,7 @@ bookmarkRouter
     const requirements = { title, rating, url };
     const bookmarkToUpdate = { title, description, rating, url };
 
-    const numberOfValues = Object.values(requirements).filter(Boolean)
-      .length;
+    const numberOfValues = Object.values(requirements).filter(Boolean).length;
     if (numberOfValues === 0) {
       return res.status(400).json({
         error: {
