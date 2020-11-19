@@ -29,7 +29,7 @@ bookmarkRouter
   .post(bodyParser, (req, res, next) => {
     const { title, description, rating, url } = req.body;
     const requirements = { title, rating, url };
-    const newBookmark = { title, description: description || "", rating, url };
+    const newBookmark = { title, description, rating, url };
 
     for (const [key, value] of Object.entries(requirements)) {
       if (value == null) {
@@ -88,10 +88,11 @@ bookmarkRouter
       .catch(next);
   })
   .patch(bodyParser, (req, res, next) => {
-    const { title, url, rating } = req.body;
-    const bookmarkToUpdate = { title, url, rating };
+    const { title, description, url, rating } = req.body;
+    const requirements = { title, rating, url };
+    const bookmarkToUpdate = { title, description, rating, url };
 
-    const numberOfValues = Object.values(bookmarkToUpdate).filter(Boolean)
+    const numberOfValues = Object.values(requirements).filter(Boolean)
       .length;
     if (numberOfValues === 0) {
       return res.status(400).json({
