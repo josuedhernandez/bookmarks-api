@@ -27,7 +27,7 @@ bookmarkRouter
   })
   .post(bodyParser, (req, res, next) => {
     const { title, description, rating, url } = req.body;
-    const newBookmark = { title, description, rating, url };
+    const newBookmark = { title, rating, url };
 
     for (const [key, value] of Object.entries(newBookmark)) {
       if (value == null) {
@@ -76,16 +76,10 @@ bookmarkRouter
   // Why not using next here but we are using it in .delete
   // Is .all always running?
   .get((req, res, next) => {
-    res.json({
-      id: res.bookmark.id,
-      title: xss(res.bookmark.title),
-      url: xss(res.bookmark.url), // sanitize title
-      description: xss(res.bookmark.description), // sanitize content
-      rating: res.bookmark.rating,
-    });
+    res.json(serializeBookmark(res.bookmark));
   })
   .delete((req, res, next) => {
-    BookmarksService.deleteBookmark(req.app.get("db"), req.params.article_id)
+    BookmarksService.deleteBookmark(req.app.get("db"), req.params.bookmark_id)
       .then(() => {
         res.status(204).end();
       })
